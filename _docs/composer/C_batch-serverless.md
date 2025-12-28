@@ -47,8 +47,8 @@ export DAGs_FOLDER=$(gcloud composer environments describe $COMPOSER_ENV \
   --location $REGION \
   --format="get(config.dagGcsPrefix)")
 
-gsutil cp $LOCAL_DAG_PYTHON $DAGs_FOLDER/
-gsutil cp $LOCAL_DAG_CONFIG $DAGs_FOLDER/config/
+gcloud storage cp $LOCAL_DAG_PYTHON $DAGs_FOLDER/
+gcloud storage cp $LOCAL_DAG_CONFIG $DAGs_FOLDER/config/
 ```
 
 ### Result

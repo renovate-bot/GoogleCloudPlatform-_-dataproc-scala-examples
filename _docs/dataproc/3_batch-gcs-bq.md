@@ -58,7 +58,7 @@ export TEMPORARY_BQ_BUCKET="your_bucket/your_temp_bucket_bq_path/"   # here the 
 
 ```console
 export BUCKET_CLASS=YOUR_CLASS          # e.g. STANDARD
-gsutil mb -p ${PROJECT_ID} -c ${BUCKET_CLASS} -l ${REGION} ${BUCKET}
+gcloud storage buckets create --project ${PROJECT_ID} --default-storage-class ${BUCKET_CLASS} --location ${REGION} ${BUCKET}
 
 export BQ_LOCATION=YOUR_LOCATION        # e.g. US
 bq mk --location=${BQ_LOCATION} --dataset ${BQ_DATASET}
@@ -67,7 +67,7 @@ bq mk --location=${BQ_LOCATION} --dataset ${BQ_DATASET}
 ### Step 4 - Copy Spark jar
 
 ```console
-gsutil cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
+gcloud storage cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
 ```
 
 ### Step 5
@@ -99,7 +99,7 @@ Before running the workflow, you must update the gcp-dataproc-workflow/workflow.
 This example workflow will create an ephemeral cluster to run the job (Managed Cluster), but it can also be configured to select an existing cluster (Cluster Selector).
 ```console
 export BUCKET_WORKFLOW_PATH="${BUCKET}/config/batch-gcs-bq-workflow.yaml"
-gsutil cp gcp-dataproc-workflow/batch-gcs-bq-workflow.yaml $BUCKET_WORKFLOW_PATH      
+gcloud storage cp gcp-dataproc-workflow/batch-gcs-bq-workflow.yaml $BUCKET_WORKFLOW_PATH
 gcloud dataproc workflow-templates instantiate-from-file \
     --file=$BUCKET_WORKFLOW_PATH \
     --region=$REGION

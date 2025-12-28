@@ -60,13 +60,13 @@ export BUCKET_OUTPUT_PATH="${BUCKET}/your_stream_data_output_path/"
 
 ```console
 export BUCKET_CLASS=YOUR_CLASS          # e.g. STANDARD
-gsutil mb -p ${PROJECT_ID} -c ${BUCKET_CLASS} -l ${REGION} ${BUCKET}
+gcloud storage buckets create ${BUCKET} --project=${PROJECT_ID} --default-storage-class=${BUCKET_CLASS} --location=${REGION}
 ```
 
 ### Step 4 - Copy Spark jar
 
 ```console
-gsutil cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
+gcloud storage cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
 ```
 
 ### Step 5 - Run using Dataproc Submit
