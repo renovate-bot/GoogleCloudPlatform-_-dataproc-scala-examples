@@ -60,7 +60,7 @@ export TEMPORARY_BQ_BUCKET="your_bucket/your_temp_bucket_path/"   # here the buc
 
 ```console
 export BUCKET_CLASS=YOUR_CLASS          # e.g. STANDARD
-gsutil mb -p ${PROJECT_ID} -c ${BUCKET_CLASS} -l ${REGION} ${BUCKET}
+gcloud storage buckets create ${BUCKET} --project=${PROJECT_ID} --default-storage-class=${BUCKET_CLASS} --location=${REGION}
 
 export BQ_LOCATION=YOUR_LOCATION        # e.g. US
 bq mk --location=${BQ_LOCATION} --dataset ${BQ_DATASET}
@@ -69,8 +69,8 @@ bq mk --location=${BQ_LOCATION} --dataset ${BQ_DATASET}
 ### Step 4 - Copy Raw CSV Dataset and Spark jar
 
 ```console
-gsutil cp src/main/resources/data.csv ${BUCKET}/your_raw_data.csv
-gsutil cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
+gcloud storage cp src/main/resources/data.csv ${BUCKET}/your_raw_data.csv
+gcloud storage cp target/scala-2.12/{YOUR_LOCAL_JAR}.jar $SPARK_APP_PATH
 ```
 
 ### Step 5 - Run using Dataproc Submit
